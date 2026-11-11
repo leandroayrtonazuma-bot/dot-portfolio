@@ -522,6 +522,7 @@ ul { list-style: none; }
 .about-cards.is-visible .about-card { opacity: 1; transform: none; }
 .about-card:hover { background: var(--bg-soft); }
 .about-card:hover .about-card-icon { color: var(--ink); }
+.affiliation-roles { list-style: disc; padding-inline-start: 1.4em; }
 .about-card-icon {
   grid-area: icon;
   display: block;
