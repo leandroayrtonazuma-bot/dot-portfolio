@@ -91,6 +91,7 @@ ul { list-style: none; }
 }
 .section-title-invert { color: var(--cream-on-ink); }
 .section-lead { color: var(--ink-soft); margin-top: 14px; font-size: 0.96rem; }
+.ops-links { display: flex; flex-wrap: wrap; gap: 10px; }
 
 /* 見出しの「めくれ上がる」リビール（親 .section-head.reveal の is-visible に連動） */
 .title-mask { display: block; overflow: hidden; }

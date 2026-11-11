@@ -1,0 +1,1486 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>OPSチーム紹介スライド｜東レアンドロHP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="deck-stage.js"></script>
+<style>
+  :root {
+    --navy: #0b2545;
+    --navy-2: #13315c;
+    --blue: #1d4ed8;
+    --blue-2: #2563eb;
+    --sky: #60a5fa;
+    --sky-2: #93c5fd;
+    --tint: #eaf1ff;
+    --tint-2: #f4f7fc;
+    --line: #d8e0ee;
+    --line-2: #e7ecf4;
+    --ink: #0b2545;
+    --ink-2: #364a6b;
+    --ink-3: #6b7a93;
+    --white: #ffffff;
+    --accent: #00a3c4;
+  }
+
+  html, body { margin: 0; background: #0a0f1a; }
+  body { font-family: "Noto Sans JP", system-ui, sans-serif; color: var(--ink); }
+
+  deck-stage { --deck-bg: #0a0f1a; }
+
+  section.slide {
+    width: 1920px;
+    height: 1080px;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+    font-feature-settings: "palt";
+    letter-spacing: 0.01em;
+    /* Elegant cross-fade between slides */
+    transition: opacity 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ——— Common chrome (now also a progress bar) ——— */
+  .chrome-top {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 8px;
+    background: var(--line-2);
+    overflow: hidden;
+  }
+  .chrome-top::before {
+    content: "";
+    position: absolute; inset: 0;
+    width: var(--slide-progress, 0%);
+    background: linear-gradient(90deg, var(--navy) 0%, var(--blue) 55%, var(--sky) 100%);
+    transition: width 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .chrome-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 72px;
+    color: var(--ink-3);
+    font-size: 18px;
+    border-top: 1px solid var(--line-2);
+    background: var(--white);
+  }
+  .chrome-bottom .meta { display: flex; gap: 28px; align-items: center; }
+  .chrome-bottom .meta .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+  .chrome-bottom .page { font-family: "JetBrains Mono", monospace; font-size: 16px; letter-spacing: 0.08em; color: var(--ink-2); }
+  .chrome-bottom .page b { color: var(--navy); font-weight: 600; }
+
+  /* OPS Logo mark */
+  .ops-logo {
+    position: absolute;
+    top: 56px; right: 72px;
+    display: flex; align-items: center; gap: 22px;
+    z-index: 5;
+  }
+  .ops-logo .mark {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 8px 22px rgba(11,37,69,0.22);
+    flex: 0 0 auto;
+    background: #0a1430;
+  }
+  .ops-logo .mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ops-logo .wm { display: flex; flex-direction: column; line-height: 1.1; }
+  .ops-logo .wm .a { font-weight: 700; font-size: 28px; color: var(--navy); letter-spacing: 0.04em; }
+  .ops-logo .wm .b { font-size: 13px; color: var(--ink-3); letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; margin-top: 6px; }
+
+  /* Large logo for cover/closing */
+  .ops-logo.large { gap: 24px; }
+  .ops-logo.large .mark { width: 140px; height: 140px; }
+  .ops-logo.large .wm .a { font-size: 32px; }
+  .ops-logo.large .wm .b { font-size: 14px; margin-top: 6px; letter-spacing: 0.24em; }
+
+  /* Slide header pattern */
+  .slide-head {
+    position: absolute;
+    top: 72px; left: 72px;
+    display: flex; align-items: center; gap: 18px;
+  }
+  .slide-head .num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 20px; color: var(--blue);
+    letter-spacing: 0.12em;
+  }
+  .slide-head .tag {
+    padding: 8px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 20px;
+    color: var(--ink-2);
+    background: var(--tint-2);
+  }
+
+  .slide-body {
+    position: absolute;
+    left: 72px; right: 72px;
+    top: 180px; bottom: 100px;
+  }
+
+  h1.slide-title {
+    font-size: 92px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0;
+    letter-spacing: 0.005em;
+    line-height: 1.12;
+  }
+  h2.slide-sub {
+    font-size: 38px;
+    font-weight: 500;
+    color: var(--ink-2);
+    margin: 32px 0 0 0;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+  }
+
+  .rule {
+    width: 64px; height: 4px;
+    background: var(--blue);
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  /* Grid lines bg (subtle) */
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(11,37,69,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(11,37,69,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+
+  /* ——— Cover (slide 1) ——— */
+  .cover {
+    background:
+      radial-gradient(1100px 700px at 85% 110%, rgba(29,78,216,0.10), transparent 60%),
+      radial-gradient(900px 600px at 0% -10%, rgba(11,37,69,0.06), transparent 60%),
+      var(--white);
+  }
+  .cover .grid-bg { background-size: 96px 96px; opacity: 0.7; }
+  .cover-inner {
+    position: absolute;
+    left: 120px; right: 120px; top: 50%;
+    transform: translateY(-50%);
+  }
+  .cover .kicker {
+    display: inline-flex; align-items: center; gap: 16px;
+    padding: 12px 22px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 22px; color: var(--ink-2);
+    margin-bottom: 36px;
+    white-space: nowrap;
+  }
+  .cover .kicker .pill {
+    background: var(--navy); color: #fff;
+    border-radius: 999px; padding: 6px 16px;
+    font-size: 16px; letter-spacing: 0.12em; font-weight: 600;
+  }
+  .cover h1 {
+    font-size: 180px; font-weight: 800; color: var(--navy);
+    margin: 0; line-height: 1.02; letter-spacing: -0.01em;
+  }
+  .cover h1 .accent { color: var(--blue); }
+  .cover .sub {
+    font-size: 40px; color: var(--ink-2); margin-top: 44px;
+    line-height: 1.5; font-weight: 500;
+    max-width: 1400px;
+  }
+  .cover .foot {
+    position: absolute; left: 120px; bottom: 130px;
+    display: flex; gap: 64px; color: var(--ink-3);
+    font-size: 24px; letter-spacing: 0.06em;
+  }
+  .cover .foot .k { color: var(--ink-3); font-size: 16px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 8px; display: block; }
+  .cover .foot .v { color: var(--navy); font-weight: 600; font-size: 26px; }
+  .cover .corner {
+    position: absolute; bottom: 130px; right: 120px;
+    width: 360px; height: 220px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background:
+      repeating-linear-gradient(45deg, rgba(29,78,216,0.04) 0 2px, transparent 2px 14px),
+      var(--white);
+    display: grid; place-items: center;
+    color: var(--ink-3); font-family: "JetBrains Mono", monospace; font-size: 18px; letter-spacing: 0.1em;
+  }
+
+  /* ——— Slide 2: OPS とは ——— */
+  .two-col {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; margin-top: 48px;
+  }
+  .big-eq {
+    background: var(--tint);
+    border-radius: 20px;
+    padding: 64px 56px;
+    border: 1px solid var(--line);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .big-eq .label { font-size: 22px; color: var(--blue); letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; margin-bottom: 22px; }
+  .big-eq .eq { font-size: 120px; font-weight: 700; color: var(--navy); line-height: 1.05; }
+  .big-eq .eq .equals { color: var(--blue); margin: 0 18px; font-weight: 400; }
+  .big-eq .desc { margin-top: 32px; font-size: 30px; color: var(--ink-2); line-height: 1.55; font-weight: 500; }
+
+  .bullet-list { list-style: none; padding: 0; margin: 0; }
+  .bullet-list li {
+    display: flex; gap: 24px; padding: 30px 0;
+    border-bottom: 1px solid var(--line-2);
+    font-size: 32px; color: var(--ink); line-height: 1.5; font-weight: 500;
+  }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li .n {
+    flex: 0 0 auto;
+    font-family: "JetBrains Mono", monospace;
+    color: var(--blue);
+    font-size: 22px;
+    padding-top: 6px;
+    letter-spacing: 0.08em;
+  }
+  .bullet-list .lead { font-size: 24px; color: var(--ink-3); margin-bottom: 8px; letter-spacing: 0.06em; }
+
+  /* ——— Slide 3: Origin story ——— */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+    margin-top: 56px;
+  }
+  .tl-card {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 40px 36px;
+    background: var(--white);
+    position: relative;
+  }
+  .tl-card .step {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 18px; color: var(--blue);
+    letter-spacing: 0.14em; margin-bottom: 20px;
+  }
+  .tl-card .when {
+    font-size: 24px; color: var(--ink-3); margin-bottom: 22px;
+  }
+  .tl-card .what {
+    font-size: 34px; font-weight: 600; color: var(--navy);
+    line-height: 1.45;
+  }
+  .tl-card .desc { margin-top: 18px; font-size: 20px; color: var(--ink-2); line-height: 1.6; }
+  .tl-card.head { background: var(--navy); border-color: var(--navy); }
+  .tl-card.head .step { color: var(--sky-2); }
+  .tl-card.head .when { color: rgba(255,255,255,0.6); }
+  .tl-card.head .what { color: #fff; }
+  .tl-card.head .desc { color: rgba(255,255,255,0.8); }
+  .tl-arrow {
+    position: absolute; top: 50%; right: -28px; transform: translateY(-50%);
+    color: var(--blue); font-size: 24px;
+  }
+  .pull-quote {
+    margin-top: 64px;
+    padding: 40px 48px;
+    border-left: 6px solid var(--blue);
+    background: var(--tint-2);
+    border-radius: 0 14px 14px 0;
+    font-size: 38px; color: var(--navy); line-height: 1.5;
+    font-weight: 600;
+  }
+
+  /* ——— Slide 4: Members ——— */
+  .members {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px; margin-top: 28px;
+  }
+  .member {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 24px 24px;
+    background: var(--white);
+    position: relative;
+  }
+  .member .avatar {
+    width: 100%; aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    background:
+      repeating-linear-gradient(45deg, rgba(11,37,69,0.05) 0 2px, transparent 2px 12px),
+      var(--tint);
+    display: grid; place-items: center;
+    color: var(--ink-3); font-family: "JetBrains Mono", monospace; font-size: 14px;
+    margin-bottom: 20px;
+    max-width: 320px;
+    overflow: hidden;
+    position: relative;
+  }
+  .member .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .member .role-pill {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px; color: var(--blue);
+    letter-spacing: 0.12em;
+    padding: 8px 16px;
+    background: var(--tint);
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .member .name {
+    font-size: 48px; font-weight: 700; color: var(--navy);
+    line-height: 1.2;
+  }
+  .member .unit {
+    margin-top: 14px;
+    font-size: 24px; color: var(--ink-2);
+    line-height: 1.5;
+  }
+  .info-strip {
+    margin-top: 24px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    padding: 20px 28px;
+    background: var(--tint-2);
+    border: 1px solid var(--line-2);
+    border-radius: 14px;
+  }
+  .info-strip .item .k { font-size: 13px; color: var(--ink-3); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 6px; }
+  .info-strip .item .v { font-size: 18px; color: var(--navy); font-weight: 600; line-height: 1.3; }
+
+  /* ——— Slide 5: Why ——— */
+  .reasons {
+    display: grid; grid-template-columns: repeat(2, 1fr) 1.1fr;
+    gap: 0;
+    margin-top: 48px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--white);
+  }
+  .reasons-left {
+    display: grid; grid-template-rows: repeat(4, 1fr);
+    grid-column: span 2;
+  }
+  .reason {
+    padding: 28px 36px;
+    border-bottom: 1px solid var(--line-2);
+    display: flex; gap: 24px; align-items: flex-start;
+  }
+  .reason:last-child { border-bottom: none; }
+  .reason .num {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--blue); font-size: 18px;
+    letter-spacing: 0.1em; padding-top: 6px;
+    min-width: 80px;
+  }
+  .reason .txt { font-size: 30px; color: var(--ink); line-height: 1.45; font-weight: 500; }
+  .reasons-right {
+    background: var(--navy);
+    color: #fff;
+    padding: 56px 48px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .reasons-right .label { font-size: 18px; color: var(--sky-2); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 28px; }
+  .reasons-right .big {
+    font-size: 50px; font-weight: 700; line-height: 1.45;
+    letter-spacing: 0.01em;
+  }
+  .reasons-right .big em {
+    font-style: normal;
+    color: var(--sky-2);
+  }
+
+  /* ——— Slide 6: Goals tags ——— */
+  .tags-wrap {
+    display: flex; flex-wrap: wrap; gap: 18px;
+    margin-top: 52px;
+    max-width: 1500px;
+  }
+  .tag-chip {
+    padding: 24px 40px;
+    border: 1px solid var(--line);
+    background: var(--white);
+    border-radius: 999px;
+    font-size: 40px;
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .tag-chip.primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .tag-chip.blue { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .tag-chip.tint { background: var(--tint); border-color: var(--tint); }
+  .goal-callout {
+    margin-top: 60px;
+    padding: 36px 40px;
+    background: linear-gradient(90deg, var(--tint) 0%, var(--white) 100%);
+    border: 1px solid var(--line);
+    border-left: 6px solid var(--blue);
+    border-radius: 14px;
+  }
+  .goal-callout .small { font-size: 20px; color: var(--ink-3); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; }
+  .goal-callout .big {
+    font-size: 40px; font-weight: 600; color: var(--navy); line-height: 1.5;
+  }
+  .goal-callout .big s { text-decoration: line-through; color: var(--ink-3); text-decoration-thickness: 2px; }
+  .goal-callout .big em { font-style: normal; color: var(--blue); font-weight: 700; }
+
+  /* ——— Slide 7 & 8 Projects ——— */
+  .proj-grid {
+    display: grid; grid-template-columns: 0.95fr 1fr;
+    gap: 48px; margin-top: 28px;
+    align-items: start;
+  }
+  .promo-frame {
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--navy);
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 48px rgba(11,37,69,0.18);
+    display: flex; align-items: center; justify-content: center;
+    align-self: start;
+    max-height: 520px;
+  }
+  .promo-frame img {
+    display: block;
+    max-width: 100%;
+    max-height: 520px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .proj-side { display: flex; flex-direction: column; justify-content: flex-start; }
+  .proj-side .lead-quote {
+    font-size: 42px; font-weight: 700; color: var(--navy);
+    line-height: 1.22; margin-bottom: 20px;
+    letter-spacing: 0.005em;
+  }
+  .proj-side .lead-quote em { color: var(--blue); font-style: normal; }
+
+  /* Calendar link block */
+  .link-block {
+    display: block;
+    margin-top: 18px;
+    padding: 18px 24px;
+    border: 1px solid var(--line);
+    border-left: 6px solid var(--blue);
+    border-radius: 12px;
+    background: var(--tint-2);
+    text-decoration: none;
+    color: inherit;
+    max-width: 640px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .link-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(11,37,69,0.10);
+  }
+  .link-lab {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px; color: var(--blue);
+    letter-spacing: 0.16em; font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .link-url {
+    font-size: 22px; color: var(--navy);
+    font-weight: 700; line-height: 1.35;
+    word-break: break-all;
+  }
+  .link-note {
+    margin-top: 10px;
+    font-size: 17px; color: var(--ink-2);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .feat-list {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .feat-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-2);
+    display: flex; gap: 22px; align-items: flex-start;
+    font-size: 20px; color: var(--ink); line-height: 1.45; font-weight: 500;
+  }
+  .feat-list li:last-child { border-bottom: none; }
+  .feat-list li::before {
+    content: ""; flex: 0 0 auto;
+    width: 12px; height: 12px;
+    margin-top: 10px;
+    background: var(--blue);
+    border-radius: 2px;
+    transform: rotate(45deg);
+  }
+
+  /* Slide 8: development cards */
+  .dev-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 52px;
+  }
+  .dev-card {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 38px 36px;
+    background: var(--white);
+    display: flex; flex-direction: column; gap: 16px;
+    min-height: 260px;
+  }
+  .dev-card .tagline {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px; color: var(--blue);
+    letter-spacing: 0.12em;
+  }
+  .dev-card .title {
+    font-size: 32px; font-weight: 700; color: var(--navy);
+    line-height: 1.4;
+  }
+  .dev-card .body {
+    font-size: 22px; color: var(--ink-2);
+    line-height: 1.55;
+  }
+  .dev-card.fill {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+  .dev-card.fill .tagline { color: var(--sky-2); }
+  .dev-card.fill .title { color: #fff; }
+  .dev-card.fill .body { color: rgba(255,255,255,0.78); }
+
+  /* ——— Slide 9: future system diagram ——— */
+  .diagram {
+    position: relative;
+    margin-top: 20px;
+    height: 520px;
+  }
+  .diagram-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .diagram .hub {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    display: grid; place-items: center;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(11,37,69,0.25);
+    z-index: 3;
+  }
+  .diagram .hub-ring {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1px dashed var(--line);
+    z-index: 2;
+  }
+  .diagram .hub-ring.outer {
+    width: 480px; height: 480px;
+    border-color: var(--line-2);
+  }
+  .diagram .hub h3 { font-size: 38px; font-weight: 700; margin: 0; letter-spacing: 0.06em; }
+  .diagram .hub p { font-size: 14px; color: var(--sky-2); margin: 12px 0 0; letter-spacing: 0.18em; }
+  .node {
+    position: absolute;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 30px;
+    font-size: 28px; color: var(--navy); font-weight: 600;
+    box-shadow: 0 8px 24px rgba(11,37,69,0.06);
+    white-space: nowrap;
+    z-index: 3;
+  }
+  .node .ic {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--blue);
+    border-radius: 50%;
+    margin-right: 12px; vertical-align: middle;
+  }
+  .diagram .n1 { top: 2%; left: 50%; transform: translateX(-50%); }
+  .diagram .n2 { top: 16%; right: 8%; }
+  .diagram .n3 { top: 46%; right: 0%; transform: translateY(-50%); }
+  .diagram .n4 { bottom: 16%; right: 8%; }
+  .diagram .n5 { bottom: 2%; left: 50%; transform: translateX(-50%); }
+  .diagram .n6 { bottom: 16%; left: 8%; }
+  .diagram .n7 { top: 46%; left: 0%; transform: translateY(-50%); }
+  .diagram .n8 { top: 16%; left: 8%; }
+  .diagram .n9 { top: 45%; left: 50%; transform: translate(-50%, -50%); display: none; }
+
+  .strong-line {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 38px; color: var(--navy); font-weight: 600;
+  }
+  .strong-line em { font-style: normal; color: var(--blue); }
+
+  /* ——— Slide 10: MTG ——— */
+  .mtg-split {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 64px; margin-top: 48px;
+    align-items: stretch;
+  }
+  .clock-card {
+    background: var(--tint);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 48px 40px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .clock-card .time {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 120px; font-weight: 600;
+    color: var(--navy); line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .clock-card .time .colon { color: var(--blue); }
+  .clock-card .day {
+    margin-top: 24px;
+    font-size: 34px; color: var(--ink-2);
+    letter-spacing: 0.04em;
+  }
+  .clock-card .day strong { color: var(--navy); font-weight: 700; }
+  .clock-card .note {
+    margin-top: 32px;
+    font-size: 22px; color: var(--ink-3);
+    line-height: 1.7;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .agenda {
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 12px 36px;
+    background: var(--white);
+  }
+  .agenda li {
+    list-style: none;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line-2);
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 24px; align-items: center;
+  }
+  .agenda li:last-child { border-bottom: none; }
+  .agenda .step {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--blue);
+    font-size: 18px;
+    letter-spacing: 0.12em;
+  }
+  .agenda .txt { font-size: 28px; color: var(--ink); line-height: 1.45; font-weight: 500; }
+  .mtg-quote {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 34px; color: var(--navy); font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .mtg-quote em { font-style: normal; color: var(--blue); }
+
+  /* ——— Slide 11: Asks ——— */
+  .asks {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px; margin-top: 56px;
+  }
+  .ask-card {
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 48px 40px;
+    background: var(--white);
+    display: flex; flex-direction: column;
+    position: relative;
+    min-height: 480px;
+  }
+  .ask-card .num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 72px; font-weight: 600;
+    color: var(--blue);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 32px;
+  }
+  .ask-card h4 {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 28px;
+    line-height: 1.35;
+  }
+  .ask-card p {
+    font-size: 25px; color: var(--ink-2);
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+  }
+  .ask-card .corner {
+    position: absolute;
+    top: 32px; right: 32px;
+    width: 36px; height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--blue);
+    display: grid; place-items: center;
+    font-size: 16px;
+  }
+  .ask-card.featured {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+  .ask-card.featured .num { color: var(--sky-2); }
+  .ask-card.featured h4 { color: #fff; }
+  .ask-card.featured p { color: rgba(255,255,255,0.8); }
+  .ask-card.featured .corner { border-color: rgba(255,255,255,0.3); color: var(--sky-2); }
+
+  /* ——— Slide 12: closing ——— */
+  .closing {
+    background:
+      radial-gradient(1200px 700px at 100% 100%, rgba(29,78,216,0.12), transparent 55%),
+      radial-gradient(900px 600px at 0% 0%, rgba(11,37,69,0.08), transparent 60%),
+      var(--white);
+  }
+  .closing .grid-bg { opacity: 0.55; background-size: 96px 96px; }
+
+  /* Large centred logo hero block */
+  .closing-logo-hero {
+    position: absolute;
+    left: 0; right: 0;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  .closing-logo-hero .hero-mark {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 24px 72px rgba(11,37,69,0.28);
+    flex: 0 0 auto;
+    background: #0a1430;
+  }
+  .closing-logo-hero .hero-mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .closing-logo-hero .hero-name {
+    font-size: 96px; font-weight: 800; color: var(--navy);
+    letter-spacing: 0.04em; line-height: 1;
+  }
+  .closing-logo-hero .hero-sub {
+    font-size: 28px; color: var(--ink-3);
+    letter-spacing: 0.22em; text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .closing-inner {
+    position: absolute;
+    left: 120px; right: 120px; top: 570px;
+    text-align: center;
+  }
+  .closing h1 {
+    font-size: 104px; font-weight: 800; color: var(--navy);
+    margin: 0; line-height: 1.04; letter-spacing: -0.01em;
+  }
+  .closing h1 .accent { color: var(--blue); }
+  .closing .sub {
+    font-size: 34px; color: var(--ink-2);
+    margin-top: 20px; font-weight: 500; line-height: 1.5;
+  }
+  .closing .body { display: none; }
+  .closing .signoff {
+    margin-top: 32px;
+    display: inline-flex; align-items: center; gap: 28px;
+    padding: 26px 48px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 18px;
+    font-size: 36px; font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .closing .signoff .arrow { color: var(--sky-2); font-size: 26px; }
+  .closing-decor {
+    position: absolute; left: 0; right: 0; bottom: 80px;
+    text-align: center; color: var(--ink-3);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px; letter-spacing: 0.18em;
+  }
+  .closing-decor .ver { color: var(--navy); font-weight: 600; font-size: 16px; margin-top: 6px; }
+</style>
+</head>
+<body>
+<deck-stage>
+  <section class="slide cover" data-screen-label="01 Cover">
+    <div class="chrome-top"></div>
+    <div class="grid-bg"></div>
+
+    <div class="ops-logo large">
+      <div class="mark"><img src="assets/ops-logo.png" alt="OPS Logo"/></div>
+      <div class="wm">
+        <span class="a">OPSチーム</span>
+        <span class="b">Operations · dot-jp</span>
+      </div>
+    </div>
+
+    <div class="cover-inner">
+      <div class="kicker">
+        <span class="pill">DX</span>
+        <span>NPO法人ドットジェイピー / Operations Team</span>
+      </div>
+      <h1>OPSチーム、<span class="accent">始動。</span></h1>
+      <p class="sub">AIとITの力で、ドットジェイピーの運営をもっとスマートに。</p>
+    </div>
+
+    <div class="foot">
+      <div>
+        <span class="k">Date</span>
+        <span class="v">2026.05.27</span>
+      </div>
+      <div>
+        <span class="k">Event</span>
+        <span class="v">全社交流会</span>
+      </div>
+      <div>
+        <span class="k">Document</span>
+        <span class="v">OPSチーム 活動報告</span>
+      </div>
+    </div>
+
+    <div class="corner">
+      OPS / v1.0 / introduction
+    </div>
+
+    <div class="chrome-bottom">
+      <div class="meta"><span class="dot"></span><span>NPO法人ドットジェイピー — Operations Team</span></div>
+      <div class="page"><b>01</b> / 09</div>
+    </div>
+  </section>
+
+  <section class="slide" data-screen-label="02 What is OPS">
+    <div class="chrome-top"></div>
+    <div class="ops-logo">
+      <div class="mark"><img src="assets/ops-logo.png" alt="OPS Logo"/></div>
+      <div class="wm"><span class="a">OPSチーム</span><span class="b">Operations</span></div>
+    </div>
+
+    <div class="slide-head">
+      <span class="num">02 / About</span>
+      <span class="tag">OPSチームとは？</span>
+    </div>
+
+    <div class="slide-body">
+      <div class="rule"></div>
+      <h1 class="slide-title">OPSチームとは？</h1>
+      <h2 class="slide-sub">ドットジェイピーの運営を、仕組みで支えるチーム。</h2>
+
+      <div class="two-col">
+        <div class="big-eq">
+          <div class="label">Definition</div>
+          <div class="eq">OPS<span class="equals">=</span>Operations</div>
+          <div class="desc">運営の「仕組み化」を担う、新しい横断チーム。</div>
+        </div>
+
+        <ul class="bullet-list">
+          <li class="lead" style="border:none; padding-bottom: 8px;">わたしたちのやること</li>
+          <li><span class="n">01</span><span>AI・IT・DXを活用して、雑務や困りごとを減らす。</span></li>
+          <li><span class="n">02</span><span>スタッフが本質的な活動に集中できる環境をつくる。</span></li>
+          <li><span class="n">03</span><span>全社の業務改善を、現場目線で進める。</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="chrome-bottom">
+      <div class="meta"><span class="dot"></span><span>OPS / About</span></div>
+      <div class="page"><b>02</b> / 09</div>
+    </div>
+  </section>
+
+  <section class="slide" data-screen-label="03 Origin">
+    <div class="chrome-top"></div>
+    <div class="ops-logo">
+      <div class="mark"><img src="assets/ops-logo.png" alt="OPS Logo"/></div>
+      <div class="wm"><span class="a">OPSチーム</span><span class="b">Operations</span></div>
+    </div>
+
+    <div class="slide-head">
+      <span class="num">03 / Origin</span>
+      <span class="tag">始まりの物語</span>
+    </div>
+
+    <div class="slide-body">
+      <div class="rule"></div>
+      <h1 class="slide-title">始まりは、Speak up！コンテスト</h1>
+      <h2 class="slide-sub">56期 Speak up！コンテスト 優勝者・久米悠雅の提案をきっかけに。</h2>
+
+      <div class="timeline">
+        <div class="tl-card head">
+          <div class="step">STEP 01</div>
+          <div class="when">56期 全社会</div>
+          <div class="what">業務効率化に関する提案を、Speak up！コンストで発表。</div>
+          <div class="tl-arrow">→</div>
+        </div>
+        <div class="tl-card">
+          <div class="step">STEP 02</div>
+          <div class="when">提案後</div>
+          <div class="what">学生代表・木家さんが有志メンバーを募集。</div>
+          <div class="tl-arrow">→</div>
+        </div>
+        <div class="tl-card">
+          <div class="step">STEP 03</div>
+          <div class="when">2026 年 4 月</div>
+          <div class="what">OPSチームとして、正式に始動。</div>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        一つの業務効率化提案が、全社を変えるプロジェクトへ。
+      </div>
+    </div>
+
+    <div class="chrome-bottom">
+      <div class="meta"><span class="dot"></span><span>OPS / Origin</span></div>
+      <div class="page"><b>03</b> / 09</div>
+    </div>
+  </section>
+
+  <section class="slide" data-screen-label="04 Why">
+    <div class="chrome-top"></div>
+    <div class="ops-logo">
+      <div class="mark"><img src="assets/ops-logo.png" alt="OPS Logo"/></div>
+      <div class="wm"><span class="a">OPSチーム</span><span class="b">Operations</span></div>
+    </div>
+
+    <div class="slide-head">
+      <span class="num">04 / Why</span>
+      <span class="tag">なぜOPSが必要か</span>
+    </div>
+
+    <div class="slide-body">
+      <div class="rule"></div>
+      <h1 class="slide-title">なぜOPSが必要なのか。</h1>
+      <h2 class="slide-sub">“雑務に追われる組織”から、“本質に集中できる組織”へ。</h2>
+
+      <div class="reasons">
+        <div class="reasons-left">
+          <div class="reason">
+            <div class="num">ISSUE 01</div>
+            <div class="txt">学生管理・事務作業に、時間がかかっている。</div>
+          </div>
+          <div class="reason">
+            <div class="num">ISSUE 02</div>
+            <div class="txt">情報が分散し、ナレッジが探しにくい。</div>
+          </div>
+          <div class="reason">
+            <div class="num">ISSUE 03</div>
+            <div class="txt">AI活用が、個人・支部ごとにバラバラ。</div>
+          </div>
+          <div class="reason">
+            <div class="num">ISSUE 04</div>
+            <div class="txt">学生対応・集客・イベント準備に使える時間を増やしたい。</div>
+          </div>
+        </div>
+        <div class="reasons-right">
+          <div class="label">Our Belief</div>
+          <div class="big">人間がやるべき仕事に、<br /><em>人間の時間を使えるようにする。</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chrome-bottom">
+      <div class="meta"><span class="dot"></span><span>OPS / Why</span></div>
+      <div class="page"><b>04</b> / 09</div>
+    </div>
+  </section>
+
+  <section class="slide" data-screen-label="05 Goals">
+    <div class="chrome-top"></div>
+    <div class="ops-logo">
+      <div class="mark"><img src="assets/ops-logo.png" alt="OPS Logo"/></div>
+      <div class="wm"><span class="a">OPSチーム</span><span class="b">Operations</span></div>
+    </div>
+
+    <div class="slide-head">
+      <span class="num">05 / Goals</span>
+      <span class="tag">OPSが目指すこと</span>
+    </div>
+
+    <div class="slide-body">
+      <div class="rule"></div>
+      <h1 class="slide-title">OPSが目指すこと。</h1>
+      <h2 class="slide-sub">AIとITで、ドットジェイピーの運営をアップデートする。</h2>
+
+      <div class="tags-wrap">
+        <span class="tag-chip primary">業務効率化</span>
+        <span class="tag-chip">AI推進</span>
+        <span class="tag-chip">AI利活用</span>
+        <span class="tag-chip blue">DX</span>
+        <span class="tag-chip">UI・UX 向上</span>
+        <span class="tag-chip tint">ナレッジ整理</span>
+        <span class="tag-chip">自動化</span>
+        <span class="tag-chip">属人化解消</span>
+      </div>
+
+      <div class="goal-callout">
+        <div class="small">Our Real Goal</div>
+        <div class="big"><s>作業を減らすこと</s>がゴールではなく、<em>インターンシッププログラムの質を高めること</em>がゴール。</div>
+      </div>
+    </div>
+
+    <div class="chrome-bottom">
+      <div class="meta"><span class="dot"></span><span>OPS / Goals</span></div>
+      <div class="page"><b>05</b> / 09</div>
+    </div>
+  </section>
+
+  <section class="slide" data-screen-label="06 Dev">
+    <div class="chrome-top"></div>
+    <div class="ops-logo">
+      <div class="mark"><img src="assets/ops-logo.png" alt="OPS Logo"/></div>
+      <div class="wm"><span class="a">OPSチーム</span><span class="b">Operations</span></div>
+    </div>
+
+    <div class="slide-head">
+      <span class="num">06 / In Progress</span>
+      <span class="tag">進行中 ② 開発・構想</span>
+    </div>
+
+    <div class="slide-body">
+      <div class="rule"></div>
+      <h1 class="slide-title">進行中 ② 開発・構想</h1>
+      <h2 class="slide-sub">ポータル、AI、リマインド、自社SaaSへ。</h2>
+
+      <div class="dev-grid">
+        <div class="dev-card fill">
+          <div class="tagline">PORTAL</div>
+          <div class="title">新しい学生管理システム / ポータルサイト</div>
+          <div class="body">業務の中心になる、自社プロダクトの開発。</div>
+        </div>
+        <div class="dev-card">
+          <div class="tagline">AI · RAG</div>
+          <div class="title">社内 LLM / RAG によるナレッジ検索</div>
+          <div class="body">分散した情報を、対話で引き出せるように。</div>
+        </div>
+        <div class="dev-card">
+          <div class="tagline">ENABLEMENT</div>
+          <div class="title">スタッフ向け AI・IT 研修</div>
+          <div class="body">使える人を増やし、活用を組織にひろげる。</div>
+        </div>
+        <div class="dev-card">
+          <div class="tagline">AUTOMATION</div>
+          <div class="title">KPIアラート・自動リマインド</div>
+          <div class="body">忘れない仕組みで、追われる時間を減らす。</div>
+        </div>
+        <div class="dev-card">
+          <div class="tagline">FUTURE STACK</div>
+          <div class="title">将来的な Salesforce 代替システム</div>
+          <div class="body">自社SaaSとして、運営の中核を内製化へ。</div>
+        </div>
+        <div class="dev-card">
+          <div class="tagline">RE-USE</div>
+          <div class="title">既存 NFT を活用したシステム構想</div>
+          <div class="body">これまでの資産を、未来の体験につなぐ。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chrome-bottom">
+      <div class="meta"><span class="dot"></span><span>OPS / In Progress · 02</span></div>
+      <div class="page"><b>06</b> / 09</div>
+    </div>
+  </section>
+
+  <section class="slide" data-screen-label="07 Future">
+    <div class="chrome-top"></div>
+    <div class="ops-logo">
+      <div class="mark"><img src="assets/ops-logo.png" alt="OPS Logo"/></div>
+      <div class="wm"><span class="a">OPSチーム</span><span class="b">Operations</span></div>
+    </div>
+
+    <div class="slide-head">
+      <span class="num">07 / Future</span>
+      <span class="tag">将来的に作りたい世界</span>
+    </div>
+
+    <div class="slide-body">
+      <div class="rule"></div>
+      <h1 class="slide-title">将来的に作りたい世界。</h1>
+      <h2 class="slide-sub">ドットジェイピーの運営を、ひとつのシステムへ。</h2>
+
+      <div class="diagram">
+        <svg class="diagram-lines" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true">
+          <g stroke="#1d4ed8" stroke-width="1" fill="none" opacity="0.45" stroke-dasharray="4 6">
+            <line x1="500" y1="260" x2="500" y2="40"/>
+            <line x1="500" y1="260" x2="860" y2="100"/>
+            <line x1="500" y1="260" x2="940" y2="260"/>
+            <line x1="500" y1="260" x2="860" y2="420"/>
+            <line x1="500" y1="260" x2="500" y2="480"/>
+            <line x1="500" y1="260" x2="140" y2="420"/>
+            <line x1="500" y1="260" x2="60" y2="260"/>
+            <line x1="500" y1="260" x2="140" y2="100"/>
+          </g>
+        </svg>
+        <div class="hub-ring outer"></div>
+        <div class="hub-ring"></div>
+        <div class="hub">
+          <div>
+            <h3>OPS</h3>
+            <p>UNIFIED&nbsp;PLATFORM</p>
+          </div>
+        </div>
+
+        <div class="node n1"><span class="ic"></span>学生管理</div>
+        <div class="node n2"><span class="ic"></span>クライアント管理</div>
+        <div class="node n3"><span class="ic"></span>スケジュール管理</div>
+        <div class="node n4"><span class="ic"></span>チャット</div>
+        <div class="node n5"><span class="ic"></span>電子署名</div>
+        <div class="node n6"><span class="ic"></span>リマインド</div>
+        <div class="node n7"><span class="ic"></span>活動記録</div>
+        <div class="node n8"><span class="ic"></span>社内ナレッジ検索</div>
+      </div>
+
+      <div class="strong-line">バラバラのツールを、<em>ひとつの体験へ。</em></div>
+    </div>
+
+    <div class="chrome-bottom">
+      <div class="meta"><span class="dot"></span><span>OPS / Future</span></div>
+      <div class="page"><b>07</b> / 09</div>
+    </div>
+  </section>
+
+  <section class="slide" data-screen-label="08 Asks">
+    <div class="chrome-top"></div>
+    <div class="ops-logo">
+      <div class="mark"><img src="assets/ops-logo.png" alt="OPS Logo"/></div>
+      <div class="wm"><span class="a">OPSチーム</span><span class="b">Operations</span></div>
+    </div>
+
+    <div class="slide-head">
+      <span class="num">08 / Asks</span>
+      <span class="tag">OPSが求めているもの</span>
+    </div>
+
+    <div class="slide-body">
+      <div class="rule"></div>
+      <h1 class="slide-title">OPSが求めているもの。</h1>
+      <h2 class="slide-sub">困りごとを教えてください。協力してください。仲間になってください。</h2>
+
+      <div class="asks">
+        <div class="ask-card">
+          <div class="num">01</div>
+          <h4>困りごとの共有</h4>
+          <p>「これ面倒」「ここ自動化したい」を、ぜひ教えてください。小さな違和感が、改善のきっかけになります。</p>
+        </div>
+        <div class="ask-card featured">
+          <div class="num">02</div>
+          <h4>運用への協力</h4>
+          <p>全社カレンダーの活用、情報提供、改善案など、運用を一緒につくる協力をお願いします。</p>
+        </div>
+        <div class="ask-card">
+          <div class="num">03</div>
+          <h4>メンバー募集</h4>
+          <p>AI・IT・DXに興味がある人、一緒にやりましょう。エンジニアじゃなくても大歓迎です。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chrome-bottom">
+      <div class="meta"><span class="dot"></span><span>OPS / Asks</span></div>
+      <div class="page"><b>08</b> / 09</div>
+    </div>
+  </section>
+
+  <section class="slide closing" data-screen-label="09 Closing">
+    <div class="chrome-top"></div>
+    <div class="grid-bg"></div>
+
+    <!-- Big centred logo hero — per final request -->
+    <div class="closing-logo-hero">
+      <div class="hero-mark"><img src="assets/ops-logo.png" alt="OPS Logo"/></div>
+      <div class="hero-name">OPSチーム</div>
+      <div class="hero-sub">Operations · dot-jp</div>
+    </div>
+
+    <div class="closing-inner">
+      <h1>一緒に、ITの力で<span class="accent">改革を。</span></h1>
+      <p class="sub">もっと楽に、もっと本質的な活動に集中できる組織へ。</p>
+
+      <p class="body">
+        OPSチームは、AIとITの力で<br />
+        ドットジェイピーの運営をアップデートしていきます。
+      </p>
+
+      <div class="signoff">
+        応援・協力・参加、ぜひよろしくお願いします！
+        <span class="arrow">→</span>
+      </div>
+    </div>
+
+    <div class="closing-decor">
+      <div>OPS · INTRODUCTION · 2026.05.27</div>
+      <div class="ver">END OF DOCUMENT</div>
+    </div>
+
+    <div class="chrome-bottom">
+      <div class="meta"><span class="dot"></span><span>NPO法人ドットジェイピー — Operations Team</span></div>
+      <div class="page"><b>09</b> / 09</div>
+    </div>
+  </section>
+</deck-stage>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <defs>
+      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#1d4ed8"/>
+        <stop offset="1" stop-color="#0b2545"/>
+      </linearGradient>
+    </defs>
+    <rect width="200" height="200" fill="url(#g)"/>
+    <g fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-weight="800" text-anchor="middle">
+      <text x="100" y="108" font-size="54" letter-spacing="2">OPS</text>
+      <text x="100" y="140" font-size="14" letter-spacing="6" opacity="0.6">OPERATIONS</text>
+    </g>
+  </svg>
+</template>
+<style id="animations">
+  /* ============ Slide entry animations ============ */
+  @keyframes opsFadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes opsFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes opsRuleGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @keyframes opsScaleIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* Initial (hidden) state for animatable elements */
+  section.slide .slide-head,
+  section.slide .rule,
+  section.slide h1.slide-title,
+  section.slide h2.slide-sub,
+  section.slide .two-col,
+  section.slide .timeline > *,
+  section.slide .pull-quote,
+  section.slide .members > *,
+  section.slide .info-strip,
+  section.slide .reasons,
+  section.slide .tags-wrap > *,
+  section.slide .goal-callout,
+  section.slide .proj-grid > *,
+  section.slide .dev-grid > *,
+  section.slide .diagram,
+  section.slide .strong-line,
+  section.slide .mtg-split > *,
+  section.slide .mtg-quote,
+  section.slide .asks > *,
+  section.slide .cover-inner > *,
+  section.slide .corner,
+  section.slide .foot > *,
+  section.slide .closing-inner > *,
+  section.slide .closing-decor {
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+  section.slide .rule {
+    transform-origin: left center;
+    transform: scaleX(0);
+    opacity: 1;
+  }
+
+  /* Active slide → run animations with staggered delays */
+  section.slide.is-active .slide-head {
+    animation: opsFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+  }
+  section.slide.is-active .rule {
+    animation: opsRuleGrow 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both;
+  }
+  section.slide.is-active h1.slide-title {
+    animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.40s both;
+  }
+  section.slide.is-active h2.slide-sub {
+    animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.60s both;
+  }
+
+  /* Body content blocks (shared) */
+  section.slide.is-active .two-col,
+  section.slide.is-active .pull-quote,
+  section.slide.is-active .info-strip,
+  section.slide.is-active .reasons,
+  section.slide.is-active .goal-callout,
+  section.slide.is-active .strong-line,
+  section.slide.is-active .mtg-quote {
+    animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both;
+  }
+
+  /* Staggered children */
+  section.slide.is-active .timeline > *:nth-child(1) { animation: opsFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both; }
+  section.slide.is-active .timeline > *:nth-child(2) { animation: opsFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.00s both; }
+  section.slide.is-active .timeline > *:nth-child(3) { animation: opsFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.15s both; }
+
+  section.slide.is-active .members > *:nth-child(1) { animation: opsFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both; }
+  section.slide.is-active .members > *:nth-child(2) { animation: opsFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.00s both; }
+  section.slide.is-active .members > *:nth-child(3) { animation: opsFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.15s both; }
+
+  section.slide.is-active .tags-wrap > * { animation: opsScaleIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  section.slide.is-active .tags-wrap > *:nth-child(1) { animation-delay: 0.85s; }
+  section.slide.is-active .tags-wrap > *:nth-child(2) { animation-delay: 0.95s; }
+  section.slide.is-active .tags-wrap > *:nth-child(3) { animation-delay: 1.05s; }
+  section.slide.is-active .tags-wrap > *:nth-child(4) { animation-delay: 1.15s; }
+  section.slide.is-active .tags-wrap > *:nth-child(5) { animation-delay: 1.25s; }
+  section.slide.is-active .tags-wrap > *:nth-child(6) { animation-delay: 1.35s; }
+  section.slide.is-active .tags-wrap > *:nth-child(7) { animation-delay: 1.45s; }
+  section.slide.is-active .tags-wrap > *:nth-child(8) { animation-delay: 1.55s; }
+
+  section.slide.is-active .proj-grid > *:nth-child(1) { animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both; }
+  section.slide.is-active .proj-grid > *:nth-child(2) { animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1.05s both; }
+
+  section.slide.is-active .dev-grid > * { animation: opsFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  section.slide.is-active .dev-grid > *:nth-child(1) { animation-delay: 0.85s; }
+  section.slide.is-active .dev-grid > *:nth-child(2) { animation-delay: 0.95s; }
+  section.slide.is-active .dev-grid > *:nth-child(3) { animation-delay: 1.05s; }
+  section.slide.is-active .dev-grid > *:nth-child(4) { animation-delay: 1.15s; }
+  section.slide.is-active .dev-grid > *:nth-child(5) { animation-delay: 1.25s; }
+  section.slide.is-active .dev-grid > *:nth-child(6) { animation-delay: 1.35s; }
+
+  section.slide.is-active .diagram { animation: opsFadeIn 1.0s ease-out 0.85s both; }
+
+  section.slide.is-active .mtg-split > *:nth-child(1) { animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both; }
+  section.slide.is-active .mtg-split > *:nth-child(2) { animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1.05s both; }
+
+  section.slide.is-active .asks > * { animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  section.slide.is-active .asks > *:nth-child(1) { animation-delay: 0.85s; }
+  section.slide.is-active .asks > *:nth-child(2) { animation-delay: 1.00s; }
+  section.slide.is-active .asks > *:nth-child(3) { animation-delay: 1.15s; }
+
+  /* Cover & closing */
+  section.slide.is-active .cover-inner > *:nth-child(1) { animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both; }
+  section.slide.is-active .cover-inner > *:nth-child(2) { animation: opsFadeUp 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both; }
+  section.slide.is-active .cover-inner > *:nth-child(3) { animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both; }
+  section.slide.is-active .foot > * { animation: opsFadeIn 0.8s ease-out 1.10s both; }
+  section.slide.is-active .corner { animation: opsFadeIn 0.8s ease-out 1.20s both; }
+
+  /* Closing logo hero */
+  section.slide .closing-logo-hero { opacity: 0; will-change: opacity, transform; }
+  section.slide.is-active .closing-logo-hero { animation: opsScaleIn 1.0s cubic-bezier(0.22, 1, 0.36, 1) 0.20s both; }
+
+  section.slide.is-active .closing-inner > *:nth-child(1) { animation: opsFadeUp 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.70s both; }
+  section.slide.is-active .closing-inner > *:nth-child(2) { animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.90s both; }
+  section.slide.is-active .closing-inner > *:nth-child(3) { animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1.10s both; }
+  section.slide.is-active .closing-inner > *:nth-child(4) { animation: opsFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1.30s both; }
+  section.slide.is-active .closing-decor { animation: opsFadeIn 0.8s ease-out 1.50s both; }
+
+  /* Top chrome bar gentle slide in */
+  @keyframes opsBarGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  section.slide .chrome-top {
+    transform-origin: left center;
+  }
+  section.slide.is-active .chrome-top {
+    animation: opsBarGrow 1.0s cubic-bezier(0.22, 1, 0.36, 1) 0s both;
+  }
+
+  /* Respect motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    section.slide .slide-head,
+    section.slide .rule,
+    section.slide h1.slide-title,
+    section.slide h2.slide-sub,
+    section.slide .two-col,
+    section.slide .timeline > *,
+    section.slide .pull-quote,
+    section.slide .members > *,
+    section.slide .info-strip,
+    section.slide .reasons,
+    section.slide .tags-wrap > *,
+    section.slide .goal-callout,
+    section.slide .proj-grid > *,
+    section.slide .dev-grid > *,
+    section.slide .diagram,
+    section.slide .strong-line,
+    section.slide .mtg-split > *,
+    section.slide .mtg-quote,
+    section.slide .asks > *,
+    section.slide .cover-inner > *,
+    section.slide .corner,
+    section.slide .foot > *,
+    section.slide .closing-inner > *,
+    section.slide .closing-logo-hero,
+    section.slide .closing-decor { opacity: 1; transform: none; animation: none !important; }
+    section.slide .rule { transform: scaleX(1); }
+  }
+</style>
+
+<script>
+  (function() {
+    function setActive(idx) {
+      const slides = document.querySelectorAll('section.slide');
+      slides.forEach((s, i) => {
+        if (i === idx) {
+          // restart animations by removing then re-adding
+          s.classList.remove('is-active');
+          // force reflow so the animations replay
+          void s.offsetWidth;
+          s.classList.add('is-active');
+        } else {
+          s.classList.remove('is-active');
+        }
+      });
+    }
+
+    // Set --slide-progress on each slide for the top progress bar
+    function setSlideProgressVars() {
+      const slides = document.querySelectorAll('section.slide');
+      const total = slides.length;
+      slides.forEach((s, i) => {
+        const pct = ((i + 1) / total) * 100;
+        s.style.setProperty('--slide-progress', pct + '%');
+      });
+    }
+
+    // Listen for slide changes from deck-stage
+    window.addEventListener('message', (e) => {
+      if (e.data && typeof e.data.slideIndexChanged === 'number') {
+        setActive(e.data.slideIndexChanged);
+      }
+    });
+
+    // Activate the first visible slide on load
+    function initialActivate() {
+      setSlideProgressVars();
+      const stage = document.querySelector('deck-stage');
+      let idx = 0;
+      if (stage && typeof stage.currentIndex === 'number') idx = stage.currentIndex;
+      else if (location.hash) {
+        const m = location.hash.match(/(\d+)/);
+        if (m) idx = Math.max(0, parseInt(m[1], 10) - 1);
+      }
+      setActive(idx);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initialActivate);
+    } else {
+      initialActivate();
+    }
+  })();
+</script>
+
+</body>
+</html>
